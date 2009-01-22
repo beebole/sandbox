@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>SandBoxed - JSONP</title>
+		<script type="text/javascript" src="js/json2Min.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var src = window.location.href.match(/_url_=(.*)/);
+			if(src) {
+				src = unescape(src[1]);
+				var callBack = function(json){
+					window.name = JSON.stringify(json);
+					alert(window.name);};
+
+				var s = document.createElement("script");
+				s.charset = "UTF-8";
+				s.src = unescape(src);
+				document.body.appendChild(s);}
+		</script>
+	</body>
+	This is just the sandbox page. See more information at <a href="http://github.com/beebole/sandbox">http://github.com/beebole/sandbox</a>
+</html>

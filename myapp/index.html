@@ -11,62 +11,33 @@
 
 	-->
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Sandbox your JSONP calls to improve mashups security</title>
 		<style type="text/css">
 			body{
 				background:#DEF;
 				font-family:Helvetica, Verdana, sans-serif;
-				padding:2em;
-			}
+				padding:2em;}
 			label{
 				display:block;
-				padding:1em 0 0;
-			}
+				padding:1em 0 0;}
 			.note{
 				color:#666;
 				font-size:.8em;
 				display:block;
-				padding:.2em 0 .2em 0;
-			}
+				padding:.2em 0 .2em 0;}
 			input[type="text"]{
 				padding:.3em;
 				font-size:1em;
-				color:#666;
-			}
+				color:#666;}
 			a{
 				color:#369;
-				padding:.5em;
-			}
+				padding:.5em;}
 		</style>
 
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>A way to make secured cross-domain JSONP for your Mashups</title>
-		<script type="text/javascript">
-		function sandboxCall(apiUrl, callBack, sandboxUrl, localUrl){
-			var id = ('ifr'+ Math.random(1000)).replace(/0\./,'');
-			var ifr = (/MSIE/.test(navigator.userAgent)) ? 
-				document.createElement('<iframe name="'+id+'" onload="window.$andbox.'+id+'()">'):
-				document.createElement('iframe');
-			ifr.id = id;
-			ifr.style.display = 'none';
-			if(!window.$andbox) window.$andbox = {}; 
-			window.$andbox[id] = ifr.onload = function(){
-				try{
-					if(ifr.contentWindow.location.href){
-						if(ifr.contentWindow.name != id){
-							var result = ifr.contentWindow.name;
-							callBack(result);
-							setTimeout(function(){
-								ifr.parentNode.removeChild(ifr);
-								ifr = null;
-								delete window.$andbox[id];
-							},0);
-						}
-					}
-				}catch(e){};};
-	
-			document.body.appendChild(ifr);
-			ifr.contentWindow.location.href = sandboxUrl +'?_local_='+escape(localUrl)+'&_url_='+escape(apiUrl);};
+		<script type="text/javascript" src="js/sandbox.js"></script>
 
+		<script type="text/javascript">
 			function updTxtArea(responseTxt){
 				var result = document.getElementById('result');
 				result.value = responseTxt;
@@ -78,8 +49,11 @@
 		</script>
 	</head>
 	<body>
-		<h2>A way to make secured cross-domain JSONP for your Mashups</h2>
+		<h2>Sandbox your JSONP calls to improve mashups security</h2>
+
 		<span class="note">A big thank you to: <a href="http://www.devpro.it/JSON/files/JSTONE-js.html">Andrea Giammarchi</a>, <a href="http://www.thomasfrank.se/sessionvars.html">Thomas Frank</a>, <a href="http://www.sitepen.com/blog/2008/07/22/windowname-transport/">Kris Zyp</a> and <a href="http://friedcellcollective.net/outbreak/jsjquerywindownameplugin/">Marko Mrdjenovič</a></span>
+
+
 		<form action="javscript:sandboxCall(val('apiUrl'), updTxtArea, val('sandboxUrl'), val('backUrl'));">
 			<label><b>API Url</b><span class="note">This is the data you want to get. Only JSONP for now (with a callback function).</span>
 				<input style="width:90%;display:block" id="apiUrl" type="text" value="http://www.google.com/uds/Gfeeds?callback=callBack&amp;hl=en&amp;output=json&amp;q=http://feeds.feedburner.com/Beebuzz&amp;v=2.0" />
@@ -87,11 +61,11 @@
 			<label><b>Sandbox Url</b><span class="note">The sandbox is an html page that you place under another domain you own. And can be on the same IP address.</span>
 				<input style="width:90%;display:block" id="sandboxUrl" type="text" value="http://beebole-sandbox.com" />
 			</label>
-			<label><b>Local Url to come back</b><span class="note">Must be a local page that exists on your server to come back from the sandbox</span>
-				<input style="width:90%;display:block" id="backUrl" type="text" value="sandbox/" />
+			<label><b>Local Url to come back</b><span class="note">Must be a local page that exists on your server to come back from the sandbox.</span>
+				<input style="width:90%;display:block" id="backUrl" type="text" value="local.html" />
 			</label>
 			<p>
-			<input type="button" onclick="sandboxCall(val('apiUrl'), updTxtArea, val('sandboxUrl'), val('backUrl'));" value="Click the button to make the call" /> <a href="http://beebole.com/blog">How it works and why did we do that?</a> <a href="http://github.com/beebole/sandbox">Download the files</a>
+			<input type="submit" onclick="sandboxCall(val('apiUrl'), updTxtArea, val('sandboxUrl'), val('backUrl'));return false;" value="Click the button to make the call" /> <a href="http://beebole.com/blog">How it works and why did we do that?</a> <a href="http://github.com/beebole/sandbox">Download the files</a>
 			</p>
 		</form>
 		<textarea id="result" style="width:90%;height:300px;display:none" value=""></textarea>
