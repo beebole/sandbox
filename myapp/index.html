@@ -12,62 +12,87 @@
 	-->
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Sandbox your JSONP calls to improve mashups security</title>
-		<style type="text/css">
-			body{
-				background:#DEF;
-				font-family:Helvetica, Verdana, sans-serif;
-				padding:2em;}
-			label{
-				display:block;
-				padding:1em 0 0;}
-			.note{
-				color:#666;
-				font-size:.8em;
-				display:block;
-				padding:.2em 0 .2em 0;}
-			input[type="text"]{
-				padding:.3em;
-				font-size:1em;
-				color:#666;}
-			a{
-				color:#369;
-				padding:.5em;}
-		</style>
+		<title>Sandbox your cross domain JSONP and improve mashups security</title>
+		<link href="sandbox.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="js/sizzle.js"></script>
+		<script type="text/javascript" src="js/pure.js"></script>
+		<script type="text/javascript" src="js/json2Min.js"></script>
 
 		<script type="text/javascript" src="js/sandbox.js"></script>
 
 		<script type="text/javascript">
-			function updTxtArea(responseTxt){
-				var result = document.getElementById('result');
-				result.value = responseTxt;
-				result.style.display = 'block';};
+			function showResult(responseTxt){
+				$('resultPURE').style.display = 'none';
+				var json = JSON.parse(responseTxt);
+				if(json){
+					if(/google.com\/uds\/Gfeeds\?/i.test($('apiUrl').value))
+						var div = $p.sizzle('#resultPURE').autoRender(json.responseData.feed)[0].style.display = 'block';
+					var result = document.getElementById('result');
+					result.value = responseTxt;
+					result.style.display = 'block';}};
 
-			function val(id){
-				return document.getElementById(id).value;}
-
+			function $(id){
+				return document.getElementById(id);}
 		</script>
 	</head>
 	<body>
-		<h2>Sandbox your JSONP calls to improve mashups security</h2>
+		<h2>Sandbox your cross domain JSONP and improve mashups security</h2>
 
-		<span class="note">A big thank you to: <a href="http://www.devpro.it/JSON/files/JSTONE-js.html">Andrea Giammarchi</a>, <a href="http://www.thomasfrank.se/sessionvars.html">Thomas Frank</a>, <a href="http://www.sitepen.com/blog/2008/07/22/windowname-transport/">Kris Zyp</a> and <a href="http://friedcellcollective.net/outbreak/jsjquerywindownameplugin/">Marko Mrdjenovič</a></span>
+		<p class="note">A big thank you to: 
+			<a href="http://www.devpro.it/JSON/files/JSTONE-js.html">Andrea Giammarchi</a>, 
+			<a href="http://www.thomasfrank.se/sessionvars.html">Thomas Frank</a>, 
+			<a href="http://www.sitepen.com/blog/2008/07/22/windowname-transport/"><b>Kris Zyp</b></a> and 
+			<a href="http://friedcellcollective.net/outbreak/jsjquerywindownameplugin/">Marko Mrdjenovič</a>
+		</p>
+		<p class="note"><a href="http://beebole.com/blog">How it works and why did we do that?</a></p>
+		<p class="note"><a href="http://github.com/beebole/sandbox">Download the files</a></p>
 
-
-		<form action="javscript:sandboxCall(val('apiUrl'), updTxtArea, val('sandboxUrl'), val('backUrl'));">
-			<label><b>API Url</b><span class="note">This is the data you want to get. Only JSONP for now (with a callback function).</span>
-				<input style="width:90%;display:block" id="apiUrl" type="text" value="http://www.google.com/uds/Gfeeds?callback=callBack&amp;hl=en&amp;output=json&amp;q=http://feeds.feedburner.com/Beebuzz&amp;v=2.0" />
+		<form>
+			<label><b>API Url</b><span class="note">This is the data you want to fetch. Only JSONP for now (with a callback function).</span>
+				<input style="width:90%;display:block" id="apiUrl" type="text" />
 			</label>
-			<label><b>Sandbox Url</b><span class="note">The sandbox is an html page that you place under another domain you own. And can be on the same IP address.</span>
+			<label><b>Sandbox Url</b><span class="note">The sandbox is a page that you place under another domain you own. And can be on the same IP address.</span>
 				<input style="width:90%;display:block" id="sandboxUrl" type="text" value="http://beebole-sandbox.com" />
 			</label>
 			<label><b>Local Url to come back</b><span class="note">Must be a local page that exists on your server to come back from the sandbox.</span>
 				<input style="width:90%;display:block" id="backUrl" type="text" value="local.html" />
 			</label>
 			<p>
-			<input type="submit" onclick="sandboxCall(val('apiUrl'), updTxtArea, val('sandboxUrl'), val('backUrl'));return false;" value="Click the button to make the call" /> <a href="http://beebole.com/blog">How it works and why did we do that?</a> <a href="http://github.com/beebole/sandbox">Download the files</a>
+			<input id="submit" type="submit" value="Click the button to make the call" />
 			</p>
 		</form>
-		<textarea id="result" style="width:90%;height:300px;display:none" value=""></textarea>
+
+		<div id="resultPURE">
+			<div class="header">
+				<a class="link@href title" href="#">BeeBuzz</a>
+				<span class="description"></span>
+			</div>
+			<ul class="feedItems">
+				<li class="entries">
+					<a class="title link@href" href="#">Title of the post</a>
+					<span class="publishedDate">Tue, 23 Dec 2008</span>
+					<div class="postContent">
+						<div>
+							<a class="toggle" href="#" onclick="this.parentNode.style.display='none';this.parentNode.nextSibling.style.display='block';return false;">+</a>
+							<p class="contentSnippet">Content Snippet...</p>
+						</div><div class="hidden">
+							<a class="toggle close" href="#" onclick="this.parentNode.style.display='none';this.parentNode.previousSibling.style.display='block';return false;">-</a>
+							<span class="content">All the content of the post.</span>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<textarea class="resultTxt" id="result" style="height:200px" value=""></textarea>
+		
+		<script>
+			//when body loaded
+			$('submit').onclick = function(){
+				sandboxCall($('apiUrl').value, showResult, $('sandboxUrl').value, $('backUrl').value);
+				return false;};
+			$('apiUrl').value = 'http://www.google.com/uds/Gfeeds?callback=callBack&amp;hl=en&amp;output=json&amp;q=http://feeds.feedburner.com/Beebuzz&amp;v=2.0';
+
+		</script>
 	</body>
 </html>
