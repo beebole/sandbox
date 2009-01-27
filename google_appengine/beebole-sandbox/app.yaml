@@ -1,0 +1,14 @@
+application: beebole-sandbox
+version: 1
+runtime: python
+api_version: 1
+
+default_expiration: "5d"
+
+handlers:
+- url: /js
+  static_dir: js
+
+- url: /.*
+  script: beebole_sandbox.py
+

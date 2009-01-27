@@ -1,1 +1,3 @@
 See how it works at http://beebole.com/blog/general/sandbox-your-cross-domain-jsonp-to-improve-mashup-security/
+
+google_appengine/ is the source code of the App Engine implementation of the sandbox page
