@@ -23,17 +23,17 @@
 
 		<script type="text/javascript">
 			function showResult(responseTxt){
-				$('resultPURE').style.display = 'none';
+				$('#resultPURE').style.display = 'none';
 				var json = JSON.parse(responseTxt);
 				if(json){
-					if(/google.com\/uds\/Gfeeds\?/i.test($('apiUrl').value))
-						var div = $p.sizzle('#resultPURE').autoRender(json.responseData.feed)[0].style.display = 'block';
-					var result = document.getElementById('result');
-					result.value = responseTxt;
-					result.style.display = 'block';}};
+					if(/google.com\/uds\/Gfeeds\?/i.test($('#apiUrl').value)){
+						$('#resultPURE').innerHTML = $p.autoRender($('.templatePURE'), json.responseData.feed);
+						$('#resultPURE').style.display = 'block';}
+					$('#result').value = responseTxt;
+					$('#result').style.display = 'block';}};
 
-			function $(id){
-				return document.getElementById(id);}
+			function $(selector, context){
+				return $p.sizzle(selector, context)[0];}
 		</script>
 	</head>
 	<body>
@@ -65,34 +65,37 @@
 
 		<textarea class="resultTxt" id="result" value=""></textarea>
 
-		<div id="resultPURE">
-			<div class="header">
-				<a class="link@href title" href="#">BeeBuzz</a>
-				<span class="description"></span>
-			</div>
-			<ul class="feedItems">
-				<li class="entries">
-					<a class="title link@href" href="#">Title of the post</a>
-					<span class="publishedDate">Tue, 23 Dec 2008</span>
-					<div class="postContent">
-						<div>
-							<a class="toggle" href="#" onclick="this.parentNode.style.display='none';this.parentNode.nextSibling.style.display='block';return false;">+</a>
-							<p class="contentSnippet">Content Snippet...</p>
-						</div><div class="hidden">
-							<a class="toggle close" href="#" onclick="this.parentNode.style.display='none';this.parentNode.previousSibling.style.display='block';return false;">-</a>
-							<span class="content">All the content of the post.</span>
+		<div class="templates">
+			<div class="templatePURE">
+				<div class="header">
+					<a class="link@href title" href="#">BeeBuzz</a>
+					<span class="description"></span>
+				</div>
+				<ul class="feedItems">
+					<li class="entries">
+						<a class="title link@href" href="#">Title of the post</a>
+						<span class="publishedDate">Tue, 23 Dec 2008</span>
+						<div class="postContent">
+							<div>
+								<a class="toggle" href="#" onclick="this.parentNode.style.display='none';this.parentNode.nextSibling.style.display='block';return false;">+</a>
+								<p class="contentSnippet">Content Snippet...</p>
+							</div><div class="hidden">
+								<a class="toggle close" href="#" onclick="this.parentNode.style.display='none';this.parentNode.previousSibling.style.display='block';return false;">-</a>
+								<span class="content">All the content of the post.</span>
+							</div>
 						</div>
-					</div>
-				</li>
-			</ul>
+					</li>
+				</ul>
+			</div>
 		</div>
+		<div id="resultPURE"></div>
 		
 		<script>
 			//when body loaded
-			$('theForm').action = $('submit').onclick = function(){
-				sandboxCall($('apiUrl').value, showResult, $('sandboxUrl').value, $('backUrl').value);
+			$('#submit').onclick = function(){
+				sandboxCall($('#apiUrl').value, showResult, $('#sandboxUrl').value, $('#backUrl').value);
 				return false;};
-			$('apiUrl').value = 'http://www.google.com/uds/Gfeeds?callback=callBack&amp;hl=en&amp;output=json&amp;q=http://feeds.feedburner.com/Beebuzz&amp;v=2.0';
+			$('#apiUrl').value = 'http://www.google.com/uds/Gfeeds?callback=callBack&amp;hl=en&amp;output=json&amp;q=http://feeds.feedburner.com/Beebuzz&amp;v=2.0';
 
 		</script>
 	</body>

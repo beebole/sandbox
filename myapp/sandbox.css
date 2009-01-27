@@ -21,9 +21,11 @@ a{
 a:hover{
 	text-decoration:underline;
 }
+.templates{
+	display:none;}
 #resultPURE{
 	width:90%;
-	display:none;}
+}
 .resultTxt{
 	width:90%;
 	height:50px;
