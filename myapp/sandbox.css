@@ -1,14 +1,14 @@
 body{
-	overflow-y:scroll;
 	background:#DEF;
 	font-family:Helvetica, Verdana, sans-serif;
-	padding:2em;}
+	padding:2em;
+	font-size:.8em;}
 label{
 	display:block;
 	padding:1em 0 0;}
 .note{
+	line-height:1.4em;
 	color:#666;
-	font-size:.8em;
 	display:block;
 	padding:.2em 0 .2em 0;}
 input[type="text"]{
@@ -22,13 +22,12 @@ a:hover{
 	text-decoration:underline;
 }
 #resultPURE{
-	float:left;
-	width:50%;
+	width:90%;
 	display:none;}
 .resultTxt{
-	margin-right:10%;
-	float:right;
-	width:30%;
+	width:90%;
+	height:50px;
+	margin-bottom:1em;
 	display:none;}
 .feedItems{
 	list-style-type:none;
@@ -40,11 +39,10 @@ a:hover{
 	padding:.5em;
 	border:solid 1px #999;}
 .header .title{
-	font-size:1.2em;
+	font-size:1.6em;
 	display:block;
 }
 .description{
-	font-size:.8em;
 	color:#888;
 	font-style:italic;
 }
@@ -55,7 +53,7 @@ a:hover{
 	border:solid 1px #999;
 	border-width:0 1px 1px 1px;}
 .entries .title{
-	font-size:1.2em;
+	font-size:1.4em;
 	font-weight:bold;
 }
 .publishedDate{
@@ -78,10 +76,8 @@ a:hover{
 	padding:0 5px 0 5px;
 }
 .contentSnippet{
-	font-size:.8em;
 }
 .content{
-	font-size:.8em;
 }
 .hidden{
 	display:none;

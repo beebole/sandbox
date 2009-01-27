@@ -43,12 +43,12 @@
 			<a href="http://www.devpro.it/JSON/files/JSTONE-js.html">Andrea Giammarchi</a>, 
 			<a href="http://www.thomasfrank.se/sessionvars.html">Thomas Frank</a>, 
 			<a href="http://www.sitepen.com/blog/2008/07/22/windowname-transport/"><b>Kris Zyp</b></a> and 
-			<a href="http://friedcellcollective.net/outbreak/jsjquerywindownameplugin/">Marko Mrdjenovič</a>
+			<a href="http://friedcellcollective.net/outbreak/jsjquerywindownameplugin/">Marko Mrdjenovič</a><br />
+			<a href="http://beebole.com/blog/general/sandbox-your-cross-domain-jsonp-to-improve-mashup-security/">How it works and why did we do that?</a><br />
+			<a href="http://github.com/beebole/sandbox">Download the files</a>
 		</p>
-		<p class="note"><a href="http://beebole.com/blog">How it works and why did we do that?</a></p>
-		<p class="note"><a href="http://github.com/beebole/sandbox">Download the files</a></p>
 
-		<form>
+		<form id="theForm">
 			<label><b>API Url</b><span class="note">This is the data you want to fetch. Only JSONP for now (with a callback function).</span>
 				<input style="width:90%;display:block" id="apiUrl" type="text" />
 			</label>
@@ -62,6 +62,8 @@
 			<input id="submit" type="submit" value="Click the button to make the call" />
 			</p>
 		</form>
+
+		<textarea class="resultTxt" id="result" value=""></textarea>
 
 		<div id="resultPURE">
 			<div class="header">
@@ -84,11 +86,10 @@
 				</li>
 			</ul>
 		</div>
-		<textarea class="resultTxt" id="result" style="height:200px" value=""></textarea>
 		
 		<script>
 			//when body loaded
-			$('submit').onclick = function(){
+			$('theForm').action = $('submit').onclick = function(){
 				sandboxCall($('apiUrl').value, showResult, $('sandboxUrl').value, $('backUrl').value);
 				return false;};
 			$('apiUrl').value = 'http://www.google.com/uds/Gfeeds?callback=callBack&amp;hl=en&amp;output=json&amp;q=http://feeds.feedburner.com/Beebuzz&amp;v=2.0';
