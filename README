@@ -1,3 +1,9 @@
 See how it works at http://beebole.com/blog/general/sandbox-your-cross-domain-jsonp-to-improve-mashup-security/
 
-google_appengine/ is the source code of the App Engine implementation of the sandbox page
+There are 2 implementations of the sandbox:
+
+PHP: at http://beebole-sandbox.com (small example server)
+The directory is sandbox/
+
+PYTHON: at http://beebole-sandbox.appspot.com (hosted on the Google App Engine servers)
+The directory is google_appengine/
